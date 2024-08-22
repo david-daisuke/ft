@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  p2p-file-transfer:
+    build: .
+    ports:
+      - "3002:3000"
+    environment:
+      - NODE_ENV=production
