@@ -1,35 +1,65 @@
 version: 0.2
+# ビルド仕様のバージョン。0.2 は CodeBuild の設定をより詳細に指定できる。
 
 phases:
   install:
     commands:
       - echo "Installing Docker..."
+      # Docker のインストール開始を通知するメッセージを出力
+
       - apt-get update -y
+      # パッケージリストを更新し、最新の情報を取得
+
       - apt-get install -y docker.io
+      # Docker をインストール。-y オプションで自動的に "yes" と答える。
+
       - |
         curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -oP '(?<=\"tag_name\": \")([^\"]+)')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+      # 最新の Docker Compose バージョンを GitHub から取得してインストール。
+
       - chmod +x /usr/local/bin/docker-compose
+      # ダウンロードした Docker Compose に実行権限を付与。
+
       - echo "Logging in to Amazon ECR..."
+      # Amazon ECR へのログイン開始を通知するメッセージを出力
+
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      # ECR にログインし、プライベートリポジトリに Docker イメージをプッシュできるようにする。
 
   pre_build:
     commands:
       - echo "Preparing the build environment..."
+      # ビルド環境の準備開始を通知するメッセージを出力
 
   build:
     commands:
       - echo "Building Docker image..."
+      # Docker イメージのビルド開始を通知するメッセージを出力
+
       - docker-compose -f docker-compose.yml build
+      # docker-compose.yml ファイルを使用して、Docker イメージをビルド。
+
       - echo "Tagging Docker image..."
+      # Docker イメージのタグ付け開始を通知するメッセージを出力
+
       - docker tag p2p-file-transfer:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/p2p-file-transfer:latest
+      # ビルドしたイメージに AWS ECR 用のタグを付与。
 
   post_build:
     commands:
       - echo "Pushing the Docker image to ECR..."
+      # Docker イメージを ECR にプッシュ開始を通知するメッセージを出力
+
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/p2p-file-transfer:latest
+      # ECR に Docker イメージをプッシュ。
+
       - echo "Build completed successfully"
+      # ビルドが正常に完了したことを通知するメッセージを出力。
 
 artifacts:
   files:
     - '**/*'
+    # ビルド後に保存するファイルを指定。`**/*` はすべてのファイルとディレクトリを含む。
+
   discard-paths: yes
+    # アーティファクト保存時にファイルのパスを削除し、単純なファイル構造にする。
