@@ -7,3 +7,6 @@ See at: [https://chidokun.github.io/p2p-file-transfer](https://chidokun.github.i
 
 appspec.yml　　　　　アプリをインストールするステップ
 buildspec.yml　　　　ビルドに必要なステップ
+
+
+環境変数はcode build にいれておきました
