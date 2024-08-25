@@ -21,12 +21,12 @@ phases:
       - echo "Building Docker image..."
       - docker-compose -f docker-compose.yml build
       - echo "Tagging Docker image..."
-      - docker tag p2p-file-transfer:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/my-image:latest
+      - docker tag p2p-file-transfer:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/p2p-file-transfer:latest
 
   post_build:
     commands:
       - echo "Pushing the Docker image to ECR..."
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/my-image:latest
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/p2p-file-transfer:latest
       - echo "Build completed successfully"
 
 artifacts:
