@@ -21,7 +21,7 @@ phases:
       - echo "Building Docker image..."
       - docker-compose -f docker-compose.yml build
       - echo "Tagging Docker image..."
-      - docker tag <service-name>:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/my-image:latest
+      - docker tag p2p-file-transfer:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/my-image:latest
 
   post_build:
     commands:
