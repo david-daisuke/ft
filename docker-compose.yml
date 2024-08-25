@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   p2p-file-transfer:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile  # Dockerfileの名前が異なる場合は修正
+    image: p2p-file-transfer:latest  # イメージ名を指定
     ports:
       - "3002:3000"
     environment:
