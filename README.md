@@ -8,9 +8,11 @@ See at: [https://chidokun.github.io/p2p-file-transfer](https://chidokun.github.i
 appspec.yml　　　　　アプリをインストールするステップ
 buildspec.yml　　　　ビルドに必要なステップ
 
+ECRでp2p-file-transfer　がレポジトリとして登録されてないと失敗します
 
 環境変数はcode build にいれておきました
 
+ポリシーは下記の通り
 AmazonEC2ContainerRegistryFullAccess
 AmazonEC2ContainerRegistryPowerUser
 AmazonEC2RoleforSSM
