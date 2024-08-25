@@ -10,3 +10,12 @@ buildspec.yml　　　　ビルドに必要なステップ
 
 
 環境変数はcode build にいれておきました
+
+AmazonEC2ContainerRegistryFullAccess
+AmazonEC2ContainerRegistryPowerUser
+AmazonEC2RoleforSSM
+AmazonS3FullAccess
+AWSCodeDeployRole
+AWSCodeDeployRoleForECS
+AWSCodePipeline_FullAccess
+CodeBuildBasePolicy-codedeployftforubuntu2-us-east-1
